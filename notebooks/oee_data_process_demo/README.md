@@ -2,7 +2,7 @@
 
 ## 目的 (Objective)
 本 Notebook 用於模擬製造業產線資料，並以 **Bronze → Silver → Gold** 的 Medallion Architecture
-示範如何在 Databricks / Spark 環境中計算 **OEE (Overall Equipment Effectiveness)** 指標。
+示範如何在 Databricks / Spark 環境中計算 **OEE (Overall Equipment Effectiveness)** 指標。(這邊只是純做 spark，若要搭配 DLT 則可以參考[Factory-optimization-OEE-score](https://d1r5llqwmkrl74.cloudfront.net/notebooks/MFG/Factory_optimization/index.html#Factory_optimization_1.html))
 
 資料為全模擬資料（Mock Data），邏輯參考：
 https://www.kaggle.com/code/dubltap/factory-oee-downtime-a-beginner-s-guide-with-s/notebook
@@ -10,26 +10,26 @@ https://www.kaggle.com/code/dubltap/factory-oee-downtime-a-beginner-s-guide-with
 ---
 
 ## 架構概覽 (Architecture Overview)
-```md
+```mermaid
 flowchart LR
     subgraph Source["Data Source (Simulated)"]
         S1["Machine Sensors<br/>(Per-minute data)"]
     end
 
     subgraph Bronze["Bronze Layer – Raw Data"]
-        B1["mfg_bronze_sensor<br/><br/>• timestamp<br/>• machine<br/>• product_id<br/>• is_running<br/>• units / good_units / scrap<br/>• cause_* (wide columns)"]
+        B1["mfg_bronze_sensor<br/><br/>timestamp<br/>machine<br/>product_id<br/>is_running<br/>units / good_units / scrap<br/>cause_* (wide columns)"]
     end
 
     subgraph Silver["Silver Layer – Cleaned Events"]
-        S2["mfg_silver_events<br/><br/>• day<br/>• shift (A/B/C)<br/>• machine<br/>• product_id<br/>• is_running<br/>• units / good_units / scrap<br/>• downtime_reason"]
+        S2["mfg_silver_events<br/><br/>day<br/>shift (A/B/C)<br/>machine<br/>product_id<br/>is_running<br/>units / good_units / scrap<br/>downtime_reason"]
     end
 
     subgraph Dim["Dimension Tables"]
-        D1["mfg_dim_products<br/><br/>• product_id<br/>• product_name<br/>• base_rate<br/>• scrap_rate"]
+        D1["mfg_dim_products<br/><br/>product_id<br/>product_name<br/>base_rate<br/>scrap_rate"]
     end
 
     subgraph Gold["Gold Layer – Business Metrics"]
-        G1["mfg_gold_oee<br/><br/>• day / shift<br/>• machine / product<br/>• availability<br/>• performance<br/>• quality<br/>• oee"]
+        G1["mfg_gold_oee<br/><br/>day / shift<br/>machine / product<br/>availability<br/>performance<br/>quality<br/>oee"]
     end
 
     S1 --> B1
