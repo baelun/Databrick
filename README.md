@@ -1,6 +1,6 @@
 # Databricks 學習與實作紀錄
 
-此儲存庫整合了所有 Microsoft Databricks 的練習課程與技術實作，包含 ETL 流水線、Spark SQL、Delta Lake 及機器學習等單元。
+此儲存庫整合了所有 Microsoft Databricks 的練習與技術實作，包含 ETL 流水線、Spark SQL、Delta Lake 及機器學習等單元。
 
 ---
 
